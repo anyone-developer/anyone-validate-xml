@@ -1,0 +1,48 @@
+name: nightly-build
+on: 
+  pull_request:
+    branches:
+      - main
+    types: [opened, edited, ready_for_review, reopened, synchronize]
+jobs:
+  license-scanning:
+    runs-on: ubuntu-latest
+    name: run fossa scanning to check license conflict
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run FOSSA scan and upload build data
+        uses: fossa-contrib/fossa-action@v1.1.2
+        with:
+          fossa-api-key: ${{ secrets.FOSSA_API_KEY }}
+          github-token: ${{ github.token }}
+  test-action-locally:
+    runs-on: ubuntu-latest
+    name: dry run action test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Check xo formatter
+        run: npm run xo
+      - name: validate-fs
+        uses: ./
+        id: validation
+        with:
+          brace-expansion: "{a,b/{ba1,ba2,bb1,bb2},c,d}/{a.qa.config,b.prd.config}"
+          ignore-files: "README.md"
+          ignore-directories: ".git"
+          read-path: "./sample_folder"
+          render-layout: "vertical"
+  test-package:
+    runs-on: ubuntu-latest
+    name: dry run test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Check xo formatter
+        run: npm run xo
+      - run: npm test

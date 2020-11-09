@@ -1,0 +1,33 @@
+name: 'anyone-validate-xml'
+author: 'Zhang Nan (zhang_nan_163@163.com)'
+branding:
+  icon: folder
+  color: white
+description: 'This action help you to validate xml syntax in specified directory. read file recursively with specified file extensions.'
+inputs:
+  file-extension:  
+    description: 'file extension that you want to read. such as "config" or "xml". split with comma.'
+    required: false
+    default: 'xml'
+  ignore-files:  
+    description: 'the files you want to ignore. split with comma.'
+    required: false
+    default: ''
+  ignore-directories:  
+    description: 'the directories you want to ignore. split with comma.'
+    required: false
+    default: ''
+  read-path:
+    description: 'the path that you assign to read.'
+    required: true
+    default: ''
+  render-layout:
+    description: 'render diff result with "vertical" or "horizontal"'
+    required: false
+    default: 'vertical'
+outputs:
+  output:
+    description: 'output of execution'
+runs:
+  using: 'node12'
+  main: 'dist/action.js'
