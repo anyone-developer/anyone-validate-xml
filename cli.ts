@@ -1,3 +1,3 @@
-import cli from "./src/cli-wrapper"
+import cli from './src/cli-wrapper';
 
 cli(process.argv);

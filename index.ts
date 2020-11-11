@@ -1,3 +1,3 @@
-import avx from './src/avx'
+import avx from './src/avx';
 
 export default avx;

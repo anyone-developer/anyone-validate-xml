@@ -21,9 +21,9 @@ This GitHub action helps you to validate the file structure as you expected. The
 
 ## Inputs
 
-### `brace-expansion`
+### `read-path`
 
-**Required** brace-expansion of the expected directory structure.
+**Required** the path that you assign to read.
 
 ### `ignore-files`
 
@@ -33,13 +33,9 @@ the files you want to ignore. split with a comma.
 
 the directories you want to ignore. split with a comma.
 
-### `read-path`
+### `file-extension`
 
-the path that you assign to read.
-
-### `render-layout`
-
-render diff result with \'vertical\' or \'horizontal\'
+file extension that you want to read. such as "config" or "xml". split with comma.
 
 ## Outputs
 
@@ -57,40 +53,23 @@ the output of execution.
 - **npm install anyone-validate-xml** to install module
 - create 'index.js' and copy code below:
 
-```javascript
+```typescript
+import avx from './src/avx';
 
-const {avfs} = require('anyone-validate-xml');
-
-avfs.setRenderLayout('horizontal').diff(
-  './sample_folder',
-  '{x/p,y/f,{a,b/{ba1,ba2,bb1,bb2},c,d}/{a.qa.config,b.prd.config}}',
-  'README.md',
-  '.git'
-).then(resolve => {
-  console.info(resolve.diff);
-  return resolve.diff;
+avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(resolve => {
+  console.log(resolve);
 }, error => {
-  if (error.name && error.message) {
-    console.error(`error message: ${error.message}`);
-  }
-
-  return error.message;
+  console.error(error);
+  throw error.err;
 });
-
 ```
 
-here is repl.it online editor: https://repl.it/@EdwardRoshan/anyone-validate-xml-demo
-
 - **node index.js** to run it
-
-<img src="https://raw.githubusercontent.com/anyone-developer/anyone-validate-xml/main/misc/module.png" width="500">
-
 
 ### `From NPM for using as a command-line app`
 
 - **npm install -g anyone-validate-xml** to install gobally
 - **anyone-validate-xml -r './sample_folder' -b '{a,b/{ba1,ba2,bb1,bb2},c,d}/{a.qa.config,b.prd.config}' -I ".git" -i "README.md"** to use your bash to execute it.
-- you would get same result with above screenshot
 
 ## Example usage
 

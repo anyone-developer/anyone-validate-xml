@@ -1,9 +1,8 @@
-import core from '@actions/core'
-import avx from './src/avx'
+import core from '@actions/core';
+import avx from './src/avx';
 
+// Avx().then(resolve => {
 
-avx().then(resolve => {
+// }, reject => {
 
-}, reject => {
-
-});
+// });
