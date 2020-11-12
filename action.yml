@@ -1,9 +1,9 @@
 name: 'anyone-validate-xml'
 author: 'Zhang Nan (zhang_nan_163@163.com)'
 branding:
-  icon: folder
-  color: white
-description: 'This action help you to validate xml syntax in specified directory. read file recursively with specified file extensions.'
+  icon: user-check
+  color: green
+description: 'This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.'
 inputs:
   file-extension:  
     description: 'file extension that you want to read. such as "config" or "xml". split with comma.'
