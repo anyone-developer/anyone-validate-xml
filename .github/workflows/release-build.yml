@@ -96,7 +96,7 @@ jobs:
       #      choco apikey --key ${{ secrets.CHOCOLATEY_API_KEY }} --source https://push.chocolatey.org/
       #      choco push MyPackage.${{ github.run_number }}.nupkg --source https://push.chocolatey.org/
   publish-npm:
-    needs: npm-test
+    needs: test-action-locally
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -111,7 +111,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:
-    needs: npm-test
+    needs: test-action-locally
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
