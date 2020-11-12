@@ -15,9 +15,9 @@
     "xo": "xo",
     "xo-fix": "xo --fix",
     "build": "npm run build-index && npm run build-action && npm run build-cli && npm run build-win && npm run build-macos && npm run build-linux",
-    "build-index": "ncc build index.ts -o dist/index.js -m -s --license LICENSE",
-    "build-action": "ncc build action.ts -o dist/action.js -m -s --license LICENSE",
-    "build-cli": "ncc build cli.ts -o dist/cli.js -m -s --license LICENSE",
+    "build-index": "ncc build index.ts -o dist/index -m -s --license LICENSE",
+    "build-action": "ncc build action.ts -o dist/action -m -s --license LICENSE",
+    "build-cli": "ncc build cli.ts -o dist/cli -m -s --license LICENSE",
     "build-win": "pkg dist/cli.js -t node12-win-x64 -o build/release/anyone-validate-xml-win",
     "build-macos": "pkg dist/cli.js -t node12-macos-x64 -o build/release/anyone-validate-xml-macos",
     "build-linux": "pkg dist/cli.js -t node12-linux-x64 -o build/release/anyone-validate-xml-linux"
