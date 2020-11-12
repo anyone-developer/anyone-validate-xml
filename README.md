@@ -13,7 +13,7 @@
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/anyone-developer/anyone-validate-xml.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/anyone-developer/anyone-validate-xml/context:javascript)
 [![DeepScan grade](https://deepscan.io/api/teams/11532/projects/14440/branches/269275/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11532&pid=14440&bid=269275)
 
-This GitHub action helps you to validate the file structure as you expected. The validate rule will follow the brace-expansion. For a more official definition, please refer to https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion
+This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.
 
 *If you like my module, please buy me a coffee.*
 
@@ -57,19 +57,26 @@ the output of execution.
 import avx from 'anyone-validate-xml';
 
 avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(result => {
-	console.info(`[${chalk.greenBright.bgYellowBright.bold('Succeed')}]`);
 	const succeed = result.filter(i => i?.formatted);
-	succeed.forEach(v => {
-		console.info(chalk.greenBright(`path: ${v.path}`));
-	});
-
-	console.log(`---------${chalk.gray.bold('Happy Divider')}---------`);
-
-	console.error(`[${chalk.redBright.bgRedBright.bold('Failed')}]`);
 	const failed = result.filter(i => i?.err);
-	failed.forEach(v => {
-		console.error(chalk.greenBright(`path: ${v.path} msg: ${v.err?.message}`));
-	});
+
+	if (succeed?.length > 0) {
+		console.info(`[${chalk.greenBright.bgYellowBright.bold('Succeed')}]`);
+		succeed.forEach(v => {
+			console.info(chalk.greenBright(`path: ${v.path}`));
+		});
+	}
+
+	if (succeed?.length > 0 && failed?.length > 0) {
+		console.log(`---------😀${chalk.gray.bold('Happy Delimiter')}😀---------`);
+	}
+
+	if (failed?.length > 0) {
+		console.error(`[${chalk.redBright.bgRedBright.bold('Failed')}]`);
+		failed.forEach(v => {
+			console.error(chalk.greenBright(`path: ${v.path} msg: ${v.err?.message}`));
+		});
+	}
 }).catch(error => console.error(error));
 ```
 
