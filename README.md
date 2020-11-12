@@ -54,14 +54,23 @@ the output of execution.
 - create 'index.js' and copy code below:
 
 ```typescript
-import avx from './src/avx';
+import avx from 'anyone-validate-xml';
 
-avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(resolve => {
-  console.log(resolve);
-}, error => {
-  console.error(error);
-  throw error.err;
-});
+avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(result => {
+	console.info(`[${chalk.greenBright.bgYellowBright.bold('Succeed')}]`);
+	const succeed = result.filter(i => i?.formatted);
+	succeed.forEach(v => {
+		console.info(chalk.greenBright(`path: ${v.path}`));
+	});
+
+	console.log(`---------${chalk.gray.bold('Happy Divider')}---------`);
+
+	console.error(`[${chalk.redBright.bgRedBright.bold('Failed')}]`);
+	const failed = result.filter(i => i?.err);
+	failed.forEach(v => {
+		console.error(chalk.greenBright(`path: ${v.path} msg: ${v.err?.message}`));
+	});
+}).catch(error => console.error(error));
 ```
 
 - **node index.js** to run it
@@ -69,18 +78,17 @@ avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(resolve => {
 ### `From NPM for using as a command-line app`
 
 - **npm install -g anyone-validate-xml** to install gobally
-- **anyone-validate-xml -r './sample_folder' -b '{a,b/{ba1,ba2,bb1,bb2},c,d}/{a.qa.config,b.prd.config}' -I ".git" -i "README.md"** to use your bash to execute it.
+- **anyone-validate-xml -r 'sample_folder' -f '.config,.xml' -I ".git" -i "README.md"** to use your bash to execute it.
 
 ## Example usage
 
 ```yml
 uses: anyone-developer/anyone-validate-xml@main
 with:
-  brace-expansion: '{a,b/{ba1,ba2,bb1,bb2},c,d}/{a.qa.config,b.prd.config}'
+  file-extension: '.config,.xml'
   ignore-files: 'README.md'
   ignore-directories: '.git'
   read-path: 'sample_folder'
-  render-layout: 'horizontal'
 ```
 
 ## Fossa Report

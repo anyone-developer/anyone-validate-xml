@@ -3,9 +3,9 @@ import path from 'path';
 import fs from 'fs';
 import parser from 'fast-xml-parser';
 import beautify from 'beautify';
-import {AvxFormatted, AvxItem, AvxError} from './types/avx-item';
+import AvxItem from './types/avx-item';
 
-async function validateAndFormat(path: string): Promise<AvxError | AvxFormatted> {
+async function validateAndFormat(path: string): Promise<AvxItem> {
 	return new Promise<AvxItem>((resolve, reject) => {
 		fs.readFile(path, (err, data) => {
 			if (err) {
@@ -27,7 +27,7 @@ async function validateAndFormat(path: string): Promise<AvxError | AvxFormatted>
 								path
 							});
 						} else {
-							const r: AvxFormatted = {
+							const r: AvxItem = {
 								path,
 								formatted: true
 							};

@@ -1,7 +1,7 @@
 {
   "name": "@anyone-developer/anyone-validate-xml",
   "version": "0.9.0",
-  "description": "This action help you to validate xml syntax in specified directory. read file recursively with specified file extensions.",
+  "description": "This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.",
   "main": "dist/index.js",
   "types": "index.d.ts",
   "files": [
@@ -67,7 +67,9 @@
   "xo": {
     "rules": {
       "prefer-promise-reject-errors": 0,
-      "prefer-optional-chain": 0
+      "prefer-optional-chain": 0,
+      "@typescript-eslint/restrict-template-expressions": 0,
+      "unicorn/no-reduce": 0
     }
   }
 }
