@@ -55,7 +55,7 @@ the output of execution.
 - create 'index.js' and copy code below:
 
 ```typescript
-import avx from 'anyone-validate-xml';
+import avx from '@anyone-developer/anyone-validate-xml';
 
 avx(['.config', 'xml'], ['README.md'], ['c'], 'sample_folder').then(result => {
 	const succeed = result.filter(i => i?.formatted);
