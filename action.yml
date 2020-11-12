@@ -26,4 +26,4 @@ outputs:
     description: 'output of execution'
 runs:
   using: 'node12'
-  main: 'dist/action.js'
+  main: 'dist/action/index.js'

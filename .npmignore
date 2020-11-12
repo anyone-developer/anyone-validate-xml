@@ -10,7 +10,6 @@ CONTRIBUTING.md
 pull_request_template.md
 build
 bin/*
-src/cli.js
-src/test.js
-action.js
+src/cli-wrapper.ts
+action.ts
 action.yml

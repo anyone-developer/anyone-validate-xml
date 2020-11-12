@@ -2,12 +2,13 @@
   "name": "@anyone-developer/anyone-validate-xml",
   "version": "0.9.0",
   "description": "This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.",
-  "main": "dist/index.js",
+  "main": "index.ts",
   "types": "index.d.ts",
   "files": [
-    "dist/cli.js",
-    "dist/index.js",
-    "dist/action.js",
+    "src/avx.ts",
+    "src/types/args.d.ts",
+    "src/types/avx-item.d.ts",
+    "index.ts",
     "index.d.ts"
   ],
   "scripts": {
