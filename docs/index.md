@@ -12,6 +12,7 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/anyone-developer/anyone-validate-xml.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/anyone-developer/anyone-validate-xml/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/anyone-developer/anyone-validate-xml.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/anyone-developer/anyone-validate-xml/context:javascript)
 [![DeepScan grade](https://deepscan.io/api/teams/11532/projects/14440/branches/269275/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11532&pid=14440&bid=269275)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/anyone-developer/anyone-validate-xml)
 
 This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.
 

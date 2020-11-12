@@ -27,7 +27,7 @@ jobs:
       - run: npm ci
       - name: Check xo formatter
         run: npm run xo
-      - name: validate-fs
+      - name: validate-xml
         uses: ./
         id: validation
         with:
