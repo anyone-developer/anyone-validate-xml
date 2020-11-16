@@ -1,0 +1,126 @@
+on:
+  push:
+    branches:
+      - main
+name: release-build
+jobs:
+  npm-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm test
+  test-action-locally:
+    needs: npm-test
+    runs-on: ubuntu-latest
+    name: dry run action test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - run: npm ci
+      - name: Check xo formatter
+        run: npm run xo
+      - name: validate-xml
+        uses: ./
+        id: validation
+        with:
+          file-extension: '.config,.xml'
+          ignore-files: 'README.md'
+          ignore-directories: '.git'
+          read-path: 'sample_folder'
+  build-release:
+    needs: test-action-locally
+    name: release-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Package artifact
+        run: |
+          mv build/release/anyone-validate-xml-win.exe anyone-validate-xml-win.exe && zip windows.zip anyone-validate-xml-win.exe
+          mv build/release/anyone-validate-xml-macos anyone-validate-xml-macos && zip macos.zip anyone-validate-xml-macos
+          mv build/release/anyone-validate-xml-linux anyone-validate-xml-linux && zip linux.zip anyone-validate-xml-linux
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: regular-release/#${{ github.run_number  }}
+          release_name: Regular release(#${{ github.run_number }})
+          draft: true
+          prerelease: true
+      - name: Upload Windows artifact
+        id: upload-windows-artifact 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./windows.zip
+          asset_name: windows.zip
+          asset_content_type: application/zip
+      - name: Upload Macos artifact
+        id: upload-macos-artifact 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./macos.zip
+          asset_name: macos.zip
+          asset_content_type: application/zip
+      - name: Upload Linux artifact
+        id: upload-linux-artifact 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./linux.zip
+          asset_name: linux.zip
+          asset_content_type: application/zip
+      # I need another action to create choco environment from windows.
+      # - name: Upload Package to Chocolatey
+      #   run: |
+      #      choco apikey --key ${{ secrets.CHOCOLATEY_API_KEY }} --source https://push.chocolatey.org/
+      #      choco push MyPackage.${{ github.run_number }}.nupkg --source https://push.chocolatey.org/
+  publish-npm:
+    needs: test-action-locally
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+          scope: '@anyone-developer'
+      - run: npm ci
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+  publish-gpr:
+    needs: test-action-locally
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@anyone-developer'
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

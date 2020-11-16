@@ -1,0 +1,19 @@
+name: release-test
+on:
+  schedule:
+    - cron:  '0 9 * * *'
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: validate
+        uses: anyone-developer/anyone-validate-xml@main
+        with:
+          file-extension: '.config,.xml'
+          ignore-files: 'README.md'
+          ignore-directories: '.git'
+          read-path: 'sample_folder'

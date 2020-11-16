@@ -1,0 +1,77 @@
+{
+  "name": "@anyone-developer/anyone-validate-xml",
+  "version": "0.9.0",
+  "description": "This action helps you to validate XML syntax in a specified directory. And write back with formatted content. read file recursively with specified file extensions.",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "files": [
+    "src/avx.ts",
+    "src/types/args.d.ts",
+    "src/types/avx-item.d.ts",
+    "index.ts",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "ts-node test.ts",
+    "xo": "xo",
+    "xo-fix": "xo --fix",
+    "build": "npm run build-index && npm run build-action && npm run build-cli && npm run build-win && npm run build-macos && npm run build-linux",
+    "build-index": "ncc build index.ts -o dist/index -m -s --license LICENSE",
+    "build-action": "ncc build action.ts -o dist/action -m -s --license LICENSE",
+    "build-cli": "ncc build cli.ts -o dist/cli -m -s --license LICENSE",
+    "build-win": "pkg dist/cli/index.js -t node12-win-x64 -o build/release/anyone-validate-xml-win",
+    "build-macos": "pkg dist/cli/index.js -t node12-macos-x64 -o build/release/anyone-validate-xml-macos",
+    "build-linux": "pkg dist/cli/index.js -t node12-linux-x64 -o build/release/anyone-validate-xml-linux"
+  },
+  "repository": "git://github.com/anyone-developer/anyone-validate-xml.git",
+  "keywords": [
+    "cli",
+    "anyone-validate-xml",
+    "anyone-developer",
+    "xml",
+    "xml-formatter",
+    "formatter",
+    "validate",
+    "validation"
+  ],
+  "author": "Zhang Nan (zhang_nan_163@163.com)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/anyone-developer/anyone-validate-xml/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "homepage": "https://github.com/anyone-developer/anyone-validate-xml#readme",
+  "dependencies": {
+    "args": "^5.0.1",
+    "beautify": "0.0.8",
+    "chalk": "^4.1.0",
+    "fast-xml-parser": "^3.17.4",
+    "rrdir": "^8.2.0"
+  },
+  "optionalDependencies": {
+    "@actions/core": "^1.2.6"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "@types/args": "^3.0.0",
+    "@types/beautify": "0.0.0",
+    "@types/rrdir": "^8.2.1",
+    "@vercel/ncc": "^0.25.1",
+    "pkg": "^4.4.9",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5",
+    "xo": "^0.34.2"
+  },
+  "xo": {
+    "rules": {
+      "prefer-promise-reject-errors": 0,
+      "prefer-optional-chain": 0,
+      "@typescript-eslint/restrict-template-expressions": 0,
+      "unicorn/no-reduce": 0
+    }
+  }
+}
