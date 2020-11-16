@@ -1,7 +1,7 @@
 export = AvxItem;
 
 declare type AvxItem = {
-	err?: NodeJS.ErrnoException | Error;
+	err?: Error;
 	formatted?: boolean;
 	path: Required<string>;
 };

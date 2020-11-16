@@ -19,9 +19,9 @@
     "build-index": "ncc build index.ts -o dist/index -m -s --license LICENSE",
     "build-action": "ncc build action.ts -o dist/action -m -s --license LICENSE",
     "build-cli": "ncc build cli.ts -o dist/cli -m -s --license LICENSE",
-    "build-win": "pkg dist/cli.js -t node12-win-x64 -o build/release/anyone-validate-xml-win",
-    "build-macos": "pkg dist/cli.js -t node12-macos-x64 -o build/release/anyone-validate-xml-macos",
-    "build-linux": "pkg dist/cli.js -t node12-linux-x64 -o build/release/anyone-validate-xml-linux"
+    "build-win": "pkg dist/cli/index.js -t node12-win-x64 -o build/release/anyone-validate-xml-win",
+    "build-macos": "pkg dist/cli/index.js -t node12-macos-x64 -o build/release/anyone-validate-xml-macos",
+    "build-linux": "pkg dist/cli/index.js -t node12-linux-x64 -o build/release/anyone-validate-xml-linux"
   },
   "repository": "git://github.com/anyone-developer/anyone-validate-xml.git",
   "keywords": [
@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@types/args": "^3.0.0",
+    "@types/beautify": "0.0.0",
     "@types/rrdir": "^8.2.1",
     "@vercel/ncc": "^0.25.1",
     "pkg": "^4.4.9",

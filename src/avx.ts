@@ -36,7 +36,7 @@ async function validateAndFormat(path: string): Promise<AvxItem> {
 					});
 				} else {
 					reject({
-						err: v.err,
+						err: new Error(`code:${v.err.code} line:${v.err.line} msg:${v.err.msg}`),
 						path
 					});
 				}
