@@ -9,7 +9,5 @@ CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 pull_request_template.md
 build
-bin/*
-src/cli-wrapper.ts
 action.ts
 action.yml
