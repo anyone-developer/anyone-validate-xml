@@ -2,7 +2,7 @@ import * as core from '@actions/core';
 import avx from './src/avx';
 import chalk from 'chalk';
 
-const fileExtension = core.getInput('file-extension') ?? [];
+const fileExtension = core.getInput('file-extension') ?? ['.xml'];
 const ignoreFiles = core.getInput('ignore-files') ?? [];
 const ignoreDirectories = core.getInput('ignore-directories') ?? [];
 const readPath = core.getInput('read-path') ?? './';
