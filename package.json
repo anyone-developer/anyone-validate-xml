@@ -79,7 +79,8 @@
       "prefer-optional-chain": 0,
       "@typescript-eslint/restrict-template-expressions": 0,
       "unicorn/no-reduce": 0,
-      "unicorn/import-index": 0
+      "unicorn/import-index": 0,
+      "import/no-unassigned-import": 0
     }
   }
 }
