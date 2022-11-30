@@ -55,7 +55,7 @@
     "beautify": "0.0.8",
     "chalk": "^4.1.0",
     "fast-xml-parser": "^3.17.4",
-    "rrdir": "^8.2.0"
+    "rrdir": "^10.1.0"
   },
   "optionalDependencies": {
     "@actions/core": "^1.2.6"
